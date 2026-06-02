@@ -1,1 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>America 250 T-Shirt Selection</title>
 
+<style>
+  :root {
+    --navy: #071b3a;
+    --blue: #0b4ea2;
+    --red: #b31924;
+    --gold: #f2c94c;
+    --text: #172033;
+    --border: #d7dde7;
+    --success: #16803c;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    background:
+      linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.95)),
+      radial-gradient(circle at top left, rgba(179,25,36,.25), transparent 34%),
+      radial-gradient(circle at bottom right, rgba(7,27,58,.28), transparent 36%);
+  }
+
+  .page {
+    width: min(1100px, 96%);
+    margin: 24px auto;
+  }
+
+  .card {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    min-height: 560px;
+    background: rgba(255,255,255,.96);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    box-shadow: 0 20px 50px rgba(7,27,58,.15);
+    overflow: hidden;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  .welcome,
+  #appScreens {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    min-height: 560px;
+  }
+
+  .welcome {
+    position: relative;
+    overflow: hidden;
+    color: white;
+    padding: 28px 34px;
+    background:
+      linear-gradient(135deg, rgba(7,27,58,.98), rgba(11,78,162,.94)),
+      repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,.08) 0,
+        rgba(255,255,255,.08) 16px,
+        rgba(179,25,36,.18) 16px,
+        rgba(179,25,36,.18) 32px
+      );
+  }
+
+  .welcome::before {
+    content: "★ ★ ★ ★ ★";
+    position: absolute;
+    top: 20px;
+    right: 28px;
+    color: rgba(255,255,255,.18);
+    font-size: 54px;
+    letter-spacing: 8px;
+    transform: rotate(-6deg);
+  }
+
+  .welcome::after {
+    content: "";
+    position: absolute;
+    width: 430px;
+    height: 430px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,.14), transparent 68%);
+    bottom: -150px;
+    left: -120px;
+  }
+
+  .deadline-bar {
+    position: relative;
+    z-index: 5;
+    background: rgba(179,25,36,.96);
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 16px;
+    padding: 12px 18px;
+    margin-bottom: 22px;
+    box-shadow: 0 12px 26px rgba(0,0,0,.22);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .deadline-text {
+    font-size: 16px;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .timer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .time-box {
+    min-width: 72px;
+    background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 10px;
+    padding: 7px 6px;
+    text-align: center;
+  }
+
+  .time-box strong {
+    display: block;
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .time-box span {
+    display: block;
+    font-size: 9px;
+    text-transform: uppercase;
+    opacity: .85;
+    margin-top: 4px;
+  }
+
+  .welcome-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 30px;
+    align-items: center;
+  }
+
+  .welcome-kicker {
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,.35);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    background: rgba(255,255,255,.08);
+    margin-bottom: 14px;
+  }
+
+  .welcome h1 {
+    margin: 0;
+    font-size: 48px;
+    line-height: .98;
+    letter-spacing: -1px;
+  }
+
+  .welcome h1 span {
+    display: block;
+    color: var(--gold);
+  }
+
+  .welcome p {
+    font-size: 15px;
+    line-height: 1.48;
+    margin: 12px 0 0;
+    color: rgba(255,255,255,.92);
+  }
+
+  .welcome-image-box {
+    width: 100%;
+    background: rgba(255,255,255,.10);
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 22px;
+    padding: 14px;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+
+  .welcome-shirt-image {
+    width: 100%;
+    max-width: 360px;
+    border-radius: 18px;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 18px 34px rgba(0,0,0,.28);
+  }
+
+  .welcome-actions {
+    margin-top: 22px;
+  }
+
+  .start-btn {
+    border: none;
+    border-radius: 14px;
+    padding: 14px 28px;
+    background: var(--red);
+    color: white;
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 12px 24px rgba(0,0,0,.25);
+  }
+
+  .start-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .logo-row {
+    margin-top: 18px;
+    border-top: 1px solid rgba(255,255,255,.25);
+    padding-top: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+  }
+
+  .combined-logo {
+    max-width: 460px;
+    width: 100%;
+    max-height: 68px;
+    object-fit: contain;
+    opacity: .95;
+  }
+
+  #appScreens {
+    display: flex;
+    flex-direction: column;
+    background: white;
+  }
+
+  .header {
+    padding: 22px 30px;
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    color: white;
+  }
+
+  .header h1 {
+    margin: 0;
+    font-size: 28px;
+  }
+
+  .header p {
+    margin: 6px 0 0;
+    opacity: .9;
+    font-size: 14px;
+  }
+
+  .badge {
+    display: inline-block;
+    margin-top: 10px;
+    border: 1px solid rgba(255,255,255,.35);
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  .content {
+    flex: 1;
+    padding: 26px 32px;
+    overflow: auto;
+  }
+
+  .screen-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .screen-subtitle {
+    margin: 0 0 22px;
+    color: #5b6475;
+    line-height: 1.5;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 22px;
+  }
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 7px;
+    color: #26334d;
+  }
+
+  input,
+  select {
+    width: 100%;
+    height: 46px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    padding: 0 14px;
+    font-size: 15px;
+    background: white;
+  }
+
+  input:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(11,78,162,.12);
+  }
+
+  .gender-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  .gender-option {
+    flex: 1;
+    height: 46px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+  }
+
+  .gender-option input {
+    width: auto;
+    height: auto;
+  }
+
+  .button-row {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  button {
+    border: none;
+    border-radius: 12px;
+    padding: 13px 24px;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  .primary-btn {
+    background: var(--navy);
+    color: white;
+  }
+
+  .primary-btn:disabled {
+    opacity: .65;
+    cursor: not-allowed;
+  }
+
+  .secondary-btn {
+    background: #eef2f7;
+    color: var(--navy);
+  }
+
+  .status-message {
+    margin-top: 16px;
+    font-weight: 800;
+    color: var(--red);
+    display: none;
+  }
+
+  .confirmation {
+    text-align: center;
+    padding: 10px 0 4px;
+  }
+
+  .check {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    background: #e7f7ec;
+    color: var(--success);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 14px;
+  }
+
+  .confirmation h2 {
+    margin: 0 0 8px;
+    font-size: 30px;
+    color: var(--navy);
+  }
+
+  .delivery-note {
+    margin: 14px auto 0;
+    max-width: 620px;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--navy);
+    background: #eef5ff;
+    border: 1px solid #cfe0f8;
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+
+  .summary-box {
+    margin: 22px auto 0;
+    max-width: 620px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    background: #fbfcff;
+    text-align: left;
+  }
+
+  .details p {
+    margin: 8px 0;
+    font-size: 15px;
+  }
+
+  .details strong {
+    color: var(--navy);
+  }
+
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 70px 1fr;
+    gap: 18px;
+    align-items: center;
+    margin-top: 22px;
+  }
+
+  .order-panel {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    background: white;
+    text-align: left;
+  }
+
+  .order-panel h3 {
+    margin: 0 0 12px;
+    color: var(--navy);
+    text-align: center;
+  }
+
+  .arrow {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--red);
+    text-align: center;
+  }
+
+  @media (max-width: 850px) {
+    .page {
+      width: 96%;
+      margin: 12px auto;
+    }
+
+    .card,
+    .welcome,
+    #appScreens {
+      aspect-ratio: auto;
+      min-height: auto;
+    }
+
+    .welcome {
+      padding: 24px;
+    }
+
+    .deadline-bar {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .deadline-text {
+      white-space: normal;
+    }
+
+    .welcome-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .welcome h1 {
+      font-size: 38px;
+    }
+
+    .form-grid,
+    .compare {
+      grid-template-columns: 1fr;
+    }
+
+    .arrow {
+      transform: rotate(90deg);
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="page">
+  <div class="card">
+
+    <div id="welcomeScreen" class="welcome">
+
+      <div class="deadline-bar">
+        <div class="deadline-text">
+          Hurry, this ends Friday 6/5/26
+        </div>
+
+        <div class="timer" id="countdownTimer">
+          <div class="time-box">
+            <strong id="days">00</strong>
+            <span>Days</span>
+          </div>
+          <div class="time-box">
+            <strong id="hours">00</strong>
+            <span>Hours</span>
+          </div>
+          <div class="time-box">
+            <strong id="minutes">00</strong>
+            <span>Minutes</span>
+          </div>
+          <div class="time-box">
+            <strong id="seconds">00</strong>
+            <span>Seconds</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="welcome-inner">
+        <div>
+          <div class="welcome-kicker">Employee Appreciation T-Shirt Selection</div>
+
+          <h1>
+            America’s
+            <span>250th Birthday</span>
+          </h1>
+
+          <p>
+            As America approaches 250 years, we have the opportunity to celebrate a milestone built on courage, progress, and unity.
+          </p>
+
+          <p>
+            This historic anniversary is more than a date. It is a reminder of the shared spirit that brings people together and the pride we carry in being part of this moment.
+          </p>
+
+          <p>
+            To honor the occasion, BCS is excited to share a special-edition T-shirt with employees in celebration of America’s 250th birthday.
+          </p>
+
+          <div class="welcome-actions">
+            <button class="start-btn" onclick="startSelection()">Start T-Shirt Selection</button>
+          </div>
+        </div>
+
+        <div class="welcome-image-box">
+          <img src="assets/shirt-preview.png" class="welcome-shirt-image" alt="America 250 T-Shirt Preview">
+        </div>
+      </div>
+
+      <div class="logo-row">
+        <img src="assets/company-logos.png" class="combined-logo" alt="Company Logos">
+      </div>
+    </div>
+
+    <div id="appScreens" class="hidden">
+      <div class="header">
+        <h1>America 250 T-Shirt Selection</h1>
+        <p>Employee size and fit submission</p>
+        <div class="badge">Special-Edition T-Shirt</div>
+      </div>
+
+      <div id="screenOne" class="content">
+        <div class="screen-title">Submit Your T-Shirt Selection</div>
+        <p class="screen-subtitle">
+          Please enter your information below so we can prepare the correct T-shirt order.
+        </p>
+
+        <form id="voteForm">
+          <div class="form-grid">
+            <div>
+              <label>Employee First Name</label>
+              <input id="firstName" type="text" placeholder="Enter first name" required />
+            </div>
+
+            <div>
+              <label>Last Name</label>
+              <input id="lastName" type="text" placeholder="Enter last name" required />
+            </div>
+
+            <div>
+              <label>Email</label>
+              <input id="email" type="email" placeholder="Enter company email" required />
+            </div>
+
+            <div>
+              <label>Location</label>
+              <select id="location" required>
+                <option value="">Loading locations...</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Selected Size</label>
+              <select id="size" required>
+                <option value="">Select size</option>
+                <option>XS</option>
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+                <option>2XL</option>
+                <option>3XL</option>
+                <option>4XL</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Gender Fit</label>
+              <div class="gender-row">
+                <label class="gender-option">
+                  <input type="radio" name="gender" value="Male" required />
+                  Male
+                </label>
+
+                <label class="gender-option">
+                  <input type="radio" name="gender" value="Female" required />
+                  Female
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div id="statusMessage" class="status-message"></div>
+
+          <div class="button-row">
+            <button type="reset" class="secondary-btn">Clear</button>
+            <button type="submit" id="submitBtn" class="primary-btn">Submit Selection</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="screenTwo" class="content hidden">
+        <div id="newSubmissionView" class="confirmation hidden">
+          <div class="check">✓</div>
+          <h2>Thank You!</h2>
+          <p>Your T-shirt selection has been successfully submitted.</p>
+
+          <div class="delivery-note">
+            T-shirts will be delivered to your assigned location by 07/02/2026.
+          </div>
+
+          <div class="summary-box">
+            <div class="details" id="submittedDetails"></div>
+          </div>
+        </div>
+
+        <div id="updatedSubmissionView" class="confirmation hidden">
+          <div class="check">↻</div>
+          <h2>Your Selection Has Been Updated</h2>
+          <p>Below is your previous submission and your new submission.</p>
+
+          <div class="delivery-note">
+            T-shirts will be delivered to your assigned location by 07/02/2026.
+          </div>
+
+          <div class="compare">
+            <div class="order-panel">
+              <h3>Previous Submission</h3>
+              <div id="previousOrder"></div>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="order-panel">
+              <h3>New Submission</h3>
+              <div id="newOrder"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button class="secondary-btn" onclick="goBack()">Submit Another / Edit</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxxoNd44bKqi79XIg6UHwoAMGhAI_bvt-A6VHfMv7PzODU51aqfDDmws74uSmpHVq4L/exec";
+  const deadline = new Date("June 5, 2026 23:59:59").getTime();
+
+  async function loadLocations() {
+    const locationSelect = document.getElementById("location");
+
+    try {
+      const response = await fetch(SCRIPT_URL + "?action=locations");
+      const result = await response.json();
+
+      locationSelect.innerHTML = '<option value="">Select location</option>';
+
+      if (!result.success || !result.locations || result.locations.length === 0) {
+        locationSelect.innerHTML = '<option value="">No locations available</option>';
+        return;
+      }
+
+      result.locations.forEach(location => {
+        const option = document.createElement("option");
+        option.value = location;
+        option.textContent = location;
+        locationSelect.appendChild(option);
+      });
+
+    } catch (error) {
+      locationSelect.innerHTML = '<option value="">Unable to load locations</option>';
+      console.error(error);
+    }
+  }
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = deadline - now;
+
+    if (distance <= 0) {
+      document.querySelector(".deadline-text").textContent = "The T-shirt selection window has ended.";
+      document.getElementById("days").textContent = "00";
+      document.getElementById("hours").textContent = "00";
+      document.getElementById("minutes").textContent = "00";
+      document.getElementById("seconds").textContent = "00";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+    const seconds = Math.floor((distance / 1000) % 60);
+
+    document.getElementById("days").textContent = String(days).padStart(2, "0");
+    document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+    document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+    document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+  loadLocations();
+
+  function startSelection() {
+    document.getElementById("welcomeScreen").classList.add("hidden");
+    document.getElementById("appScreens").classList.remove("hidden");
+    document.getElementById("screenOne").classList.remove("hidden");
+    document.getElementById("screenTwo").classList.add("hidden");
+  }
+
+  document.getElementById("voteForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const submitBtn = document.getElementById("submitBtn");
+    const statusMessage = document.getElementById("statusMessage");
+    const gender = document.querySelector('input[name="gender"]:checked');
+
+    const order = {
+      firstName: document.getElementById("firstName").value.trim(),
+      lastName: document.getElementById("lastName").value.trim(),
+      email: document.getElementById("email").value.trim().toLowerCase(),
+      location: document.getElementById("location").value,
+      size: document.getElementById("size").value,
+      gender: gender ? gender.value : "",
+      submittedAt: new Date().toLocaleString()
+    };
+
+    try {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting...";
+      statusMessage.style.display = "none";
+
+      const response = await fetch(SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify(order)
+      });
+
+      const result = await response.json();
+
+      if (!result.success) {
+        showStatus(result.message || "Submission could not be saved.");
+        return;
+      }
+
+      showConfirmation(result.previousOrder, result.currentOrder, result.updated);
+
+    } catch (error) {
+      showStatus("Submission could not be saved. Please try again or contact HR.");
+      console.error(error);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Selection";
+    }
+  });
+
+  function showStatus(message) {
+    const statusMessage = document.getElementById("statusMessage");
+    statusMessage.textContent = message;
+    statusMessage.style.display = "block";
+  }
+
+  function showConfirmation(previous, current, updated) {
+    document.getElementById("screenOne").classList.add("hidden");
+    document.getElementById("screenTwo").classList.remove("hidden");
+
+    document.getElementById("newSubmissionView").classList.add("hidden");
+    document.getElementById("updatedSubmissionView").classList.add("hidden");
+
+    if (updated && previous) {
+      document.getElementById("updatedSubmissionView").classList.remove("hidden");
+      document.getElementById("previousOrder").innerHTML = detailsHtml(previous);
+      document.getElementById("newOrder").innerHTML = detailsHtml(current);
+    } else {
+      document.getElementById("newSubmissionView").classList.remove("hidden");
+      document.getElementById("submittedDetails").innerHTML = detailsHtml(current);
+    }
+  }
+
+  function detailsHtml(order) {
+    return `
+      <p><strong>Name:</strong> ${escapeHtml(order.firstName)} ${escapeHtml(order.lastName)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(order.email)}</p>
+      <p><strong>Location:</strong> ${escapeHtml(order.location)}</p>
+      <p><strong>Size:</strong> ${escapeHtml(order.size)}</p>
+      <p><strong>Gender Fit:</strong> ${escapeHtml(order.gender)}</p>
+      <p><strong>Original Submitted:</strong> ${escapeHtml(order.originalSubmittedAt || order.submittedAt || "")}</p>
+      <p><strong>Last Updated:</strong> ${escapeHtml(order.lastUpdatedAt || order.submittedAt || "")}</p>
+    `;
+  }
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function goBack() {
+    document.getElementById("screenTwo").classList.add("hidden");
+    document.getElementById("screenOne").classList.remove("hidden");
+  }
+</script>
+
+</body>
+</html>
